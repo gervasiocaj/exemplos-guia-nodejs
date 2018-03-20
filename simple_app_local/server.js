@@ -1,18 +1,18 @@
-const got = require('got')
+const request = require('request-promise')
 const cheerio = require('cheerio')
+
+const loadPage = url => request(url, { transform: res => cheerio.load(res) })
 
 // o .map() de jQuery não funciona como o Array.prototype.map()
 // é necessário chamar o .get() no final
 // para entender melhor, veja https://api.jquery.com/map/
 
-got('https://super.abril.com.br/')
-  .then(pagina => cheerio.load(pagina.body))
+loadPage('https://super.abril.com.br/')
   .then($ => {
     return $('.widget-home-box-list-item-title')
       .map((i, el) => $(el).find('a').attr('href')).get()
   })
-  .then(urls => Promise.all(urls.map(got)))
-  .then(respostas => respostas.map(pagina => cheerio.load(pagina.body)))
+  .then(urls => Promise.all(urls.map(loadPage)))
   .then(paginasCarregadas => paginasCarregadas.map(function ($) {
     return {
       titulo: $('.article-title').text(),
