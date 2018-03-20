@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul>
+  {% for aluno in alunos %}
+  <li><a href="/aluno/{{ aluno._id }}">{{ aluno.nome }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
