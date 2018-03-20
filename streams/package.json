@@ -1,0 +1,11 @@
+{
+  "name": "streams",
+  "version": "0.1.0",
+  "scripts": {
+    "prepare": "node create_file.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "fs-extra": "^5.0.0"
+  }
+}
