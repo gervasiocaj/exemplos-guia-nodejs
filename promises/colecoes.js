@@ -1,15 +1,15 @@
-require('request') // necessário apenas como dependência
 const request = require('request-promise') // implementação do request usando promises
+
+const loadJSON = url => request(url, { json: true })
 
 let pessoas = ['nome/joao/idade/14', 'nome/maria/idade/16', 'nome/jose/idade/17']
 let requisicoes = pessoas
     .map(x => `http://echo.jsontest.com/${x}`)
-    .map(request)
+    .map(loadJSON)
 
 Promise.all(requisicoes)
 .then(resultado =>
   resultado
-    .map(JSON.parse)
     .map(p => { p.idade = parseInt(p.idade); return p })
 ).then(resultado => {
   let tamanho = resultado.length
