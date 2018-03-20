@@ -1,0 +1,7 @@
+{
+  "name": "workers",
+  "version": "0.1.0",
+  "dependencies": {
+    "webworker-threads": "^0.7.13"
+  }
+}
